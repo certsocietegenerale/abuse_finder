@@ -57,10 +57,15 @@ def domain_abuse(domain, registrant=False):
         return {
             "value": domain,
             "names": [],
-            "abuse": []
+            "abuse": [],
+            "raw": ""
         }
 
     if registrant:
-        return _get_registrant_abuse(domain, parsed)
+        results = _get_registrant_abuse(domain, parsed)
     else:
-        return _get_registrar_abuse(domain, parsed)
+        results = _get_registrar_abuse(domain, parsed)
+
+    results['raw'] = "\n\n".join(data)
+
+    return results

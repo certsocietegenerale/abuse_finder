@@ -24,6 +24,7 @@ def email_abuse(email):
 
         for domain in alternative_domains:
             domain_results = domain_abuse(domain, registrant=True)
+            results['raw'] += "\n{}\n{}\n".format(domain, domain_results['raw'])
             for key in ['names', 'abuse']:
                 for value in domain_results[key]:
                     if value not in results[key]:

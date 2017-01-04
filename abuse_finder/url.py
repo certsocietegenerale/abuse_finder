@@ -21,10 +21,11 @@ def url_abuse(url):
     else:
         ip_addresses.add(parts.domain)
 
-    results = {'value': [], 'names': [], 'abuse': []}
+    results = {'value': [], 'names': [], 'abuse': [], 'raw': ""}
     for ip in ip_addresses:
         results['value'].append(ip)
         ip_results = ip_abuse(ip)
+        results['raw'] += "IP: {}\n\n{}\n\n".format(ip, ip_results['raw'])
         for key in ['names', 'abuse']:
             for value in ip_results[key]:
                 if value not in results[key]:

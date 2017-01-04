@@ -8,7 +8,7 @@ import re
 
 def _get_abuse_emails(raw_whois):
     score = 0
-    email_candidates = []
+    email_candidates = set()
 
     for line in raw_whois.splitlines():
         email_addresses = re.findall(r'[\w\.+-]+@[\w\.-]+', line)
@@ -16,12 +16,12 @@ def _get_abuse_emails(raw_whois):
             abuse_references = line.count('abuse')
 
             if abuse_references == score:
-                email_candidates += email_addresses
+                email_candidates = set(list(email_candidates) + email_addresses)
             elif abuse_references > score:
-                email_candidates = email_addresses
+                email_candidates = set(email_addresses)
                 score = abuse_references
 
-    return email_candidates
+    return list(email_candidates)
 
 
 def _get_names(ip_address, parsed_whois):
@@ -45,5 +45,6 @@ def ip_abuse(ip_address):
     return {
         "value": ip_address,
         "names": _get_names(ip_address, results),
-        "abuse": _get_abuse_emails(results['raw'])
+        "abuse": _get_abuse_emails(results['raw']),
+        "raw": results['raw']
     }
