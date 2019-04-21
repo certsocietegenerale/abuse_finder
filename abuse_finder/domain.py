@@ -1,4 +1,4 @@
-from __future__ import unicode_literals
+from __future__ import print_function,unicode_literals
 
 from pythonwhois.net import get_whois_raw
 from pythonwhois.parse import parse_raw_whois
@@ -16,7 +16,7 @@ def _get_registrant_abuse(domain, parsed_whois):
             elif 'name' in parsed_whois['contacts']['registrant'] and parsed_whois['contacts']['registrant']['name']:
                 names.append(parsed_whois['contacts']['registrant']['name'])
 
-        for _, contact in parsed_whois['contacts'].iteritems():
+        for _, contact in parsed_whois['contacts'].items():
             if contact and 'email' in contact and 'abuse' in contact['email']:
                 emails.append(contact['email'])
 
@@ -51,8 +51,8 @@ def domain_abuse(domain, registrant=False):
     try:
         data = get_whois_raw(domain)
         parsed = parse_raw_whois(data, ['Domain', 'contacts'])
-    except Exception, e:
-        print "Could not get WHOIS for {} ({})".format(domain, e)
+    except Exception as e:
+        print("Could not get WHOIS for {} ({})".format(domain, e))
 
         return {
             "value": domain,

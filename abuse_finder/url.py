@@ -1,8 +1,10 @@
 from __future__ import unicode_literals
+from future.standard_library import install_aliases
+install_aliases()
 
 from dns.resolver import query, NoAnswer
 from tldextract import extract
-from urlparse import urlparse
+from urllib.parse import urlparse
 
 from .ip import ip_abuse
 

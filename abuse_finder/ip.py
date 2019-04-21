@@ -1,4 +1,5 @@
 from __future__ import unicode_literals
+from builtins import str
 
 from ipwhois import IPWhois
 from operator import itemgetter
@@ -25,7 +26,7 @@ def _get_abuse_emails(raw_whois):
 
 
 def _get_names(ip_address, parsed_whois):
-    ip_address = IPv4Address(ip_address)
+    ip_address = IPv4Address(str(ip_address))
     names = []
 
     for network in parsed_whois['nets']:
