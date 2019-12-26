@@ -2,7 +2,7 @@
 from setuptools import setup
 
 setup(name='abuse_finder',
-      version='0.1',
+      version='0.2',
       description='Look for abuse contacts for IP, domain names, email addresses and URLs.',
       url='https://github.com/certsocietegenerale/abuse_finder',
       author='CERT Société Générale',

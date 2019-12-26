@@ -1,6 +1,7 @@
 # abuse_finder
 
 Python library to help automatically find the most appropriate contact for abuse reports.
+Supports Python2.7 and Python3.6
 
 Currently supports the following types of observables:
 
