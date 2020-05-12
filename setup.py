@@ -12,8 +12,9 @@ setup(name='abuse_finder',
       install_requires=[
         'ipwhois',
         'ipaddress',
-        'pythonwhois',
+        'pythonwhois-alt',
         'tldextract',
+        'future',
         'dnspython'
       ],
       zip_safe=False)
