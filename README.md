@@ -12,9 +12,9 @@ Currently supports the following types of observables:
 
 ## Installation
 
-You can install this using pip:
+You can install the latest version using pip:
 
-    $ pip install abuse_finder
+    $ python -m pip install git+https://github.com/certsocietegenerale/abuse_finder.git
 
 Or from the source code:
 
