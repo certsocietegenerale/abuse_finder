@@ -3,7 +3,7 @@ from builtins import str
 
 from ipwhois import IPWhois
 from operator import itemgetter
-from ipaddress import IPv4Network, IPv4Address
+from ipaddress import ip_network, ip_address
 import re
 
 
@@ -25,27 +25,27 @@ def _get_abuse_emails(raw_whois):
     return list(email_candidates)
 
 
-def _get_names(ip_address, parsed_whois):
-    ip_address = IPv4Address(str(ip_address))
+def _get_names(address, parsed_whois):
+    address = ip_address(str(address))
     names = []
 
     for network in parsed_whois['nets']:
         for cidr in network['cidr'].split(','):
-            cidr = IPv4Network(cidr.strip())
-            if ip_address in cidr and network['description']:
+            cidr = ip_network(cidr.strip())
+            if address in cidr and network['description']:
                 names.append([cidr.prefixlen, network['description'].splitlines()[0]])
                 break
 
     return [n[1] for n in sorted(names, key=itemgetter(0), reverse=True)]
 
 
-def ip_abuse(ip_address):
-    obj = IPWhois(ip_address)
+def ip_abuse(address):
+    obj = IPWhois(address)
     results = obj.lookup_whois(inc_raw=True)
 
     return {
-        "value": ip_address,
-        "names": _get_names(ip_address, results),
+        "value": address,
+        "names": _get_names(address, results),
         "abuse": _get_abuse_emails(results['raw']),
         "raw": results['raw']
     }
