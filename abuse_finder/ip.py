@@ -12,7 +12,7 @@ def _get_abuse_emails(raw_whois):
     email_candidates = set()
 
     for line in raw_whois.splitlines():
-        email_addresses = re.findall(r'[\w\.+-]+@[\w\.-]+', line)
+        email_addresses = re.findall(r'[\w\.+-]+@[\w-]+(?:\.[\w-]+)+', line)
         if email_addresses:
             abuse_references = line.count('abuse')
 
