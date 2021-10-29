@@ -8,14 +8,14 @@ import re
 
 abuse_terms = [
     'abuse',
-    'OrgNOCEmail',
+    'orgnocemail',
 ]
 
 def _get_abuse_emails(raw_whois):
     score = 0
     email_candidates = set()
 
-    for line in raw_whois.splitlines():
+    for line in (line.lower() for line in raw_whois.splitlines()):
         email_addresses = re.findall(r'[\w\.+-]+@[\w-]+(?:\.[\w-]+)+', line)
         if email_addresses:
             abuse_references = sum(line.count(term) for term in abuse_terms)
