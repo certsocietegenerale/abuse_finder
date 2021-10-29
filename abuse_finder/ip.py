@@ -6,6 +6,10 @@ from operator import itemgetter
 from ipaddress import ip_network, ip_address
 import re
 
+abuse_terms = [
+    'abuse',
+    'OrgNOCEmail',
+]
 
 def _get_abuse_emails(raw_whois):
     score = 0
@@ -14,7 +18,7 @@ def _get_abuse_emails(raw_whois):
     for line in raw_whois.splitlines():
         email_addresses = re.findall(r'[\w\.+-]+@[\w-]+(?:\.[\w-]+)+', line)
         if email_addresses:
-            abuse_references = line.count('abuse')
+            abuse_references = sum(line.count(term) for term in abuse_terms)
 
             if abuse_references == score:
                 email_candidates = set(list(email_candidates) + email_addresses)
