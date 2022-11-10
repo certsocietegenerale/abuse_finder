@@ -1,5 +1,29 @@
 [build-system]
-requires = ["setuptools>=44", "wheel", "setuptools_scm[toml]>=3.4.3"]
+requires = ["setuptools>=61.2", "setuptools_scm[toml]>=3.4.3"]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "abuse_finder"
+authors = [{name = "CERT Société Générale", email = "cert.sg@socgen.com"}]
+license = {text = "GPLv3"}
+description = "Look for abuse contacts for IP, domain names, email addresses and URLs."
+readme = "README.md"
+dependencies = [
+    "ipwhois",
+    "ipaddress",
+    "pythonwhois-alt",
+    "tldextract",
+    "future",
+    "dnspython",
+]
+dynamic = ["version"]
+
+[project.urls]
+Homepage = "https://github.com/certsocietegenerale/abuse_finder"
+
+[tool.setuptools]
+packages = ["abuse_finder"]
+zip-safe = false
+include-package-data = false
 
 [tool.setuptools_scm]
